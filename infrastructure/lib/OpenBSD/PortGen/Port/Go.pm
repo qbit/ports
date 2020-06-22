@@ -92,35 +92,28 @@ sub get_dist_info
 
 	my $json = $self->_go_determine_name($module);
 
-	my %mods;
+	my @zips;
+	my @mods;
 	for ( $self->_go_mod_graph($json) ) {
 		my ($direct, $ephemeral) = @{$_};
 
-		for my $d ( $direct, $ephemeral ) {
+		for my $d ( $direct ) {
 			next unless $d->{Version};
-			$mods{ $d->{Module} }{ $d->{Version} } ||= $d;
+			push @zips, [$d->{Module}, $d->{Version}];
+		}
+
+		for my $d ( $ephemeral ) {
+			next unless $d->{Version};
+			push @mods, [$d->{Module}, $d->{Version}];
 		}
 	}
 
-	# Filter dependencies to the one with the highest version
-	foreach my $mod ( sort keys %mods ) {
-		# Sort semver numerically then the rest alphanumeric.
-		# This is overkill for sorting, but I already wrote it
-		my @versions =
-		    map { $_->[0] }
-		    sort {
-		        $a->[1] <=> $b->[1]
-		     || $a->[2] <=> $b->[2]
-		     || $a->[3] <=> $b->[3]
-		     || $a->[4] cmp $b->[4]
-		    }
-		    map { $_->[1] =~ s/^v//; $_ }
-		    map { [ $_, split /[\.\+-]/, $_, 4 ] }
-		    keys %{ $mods{$mod} };
+	carp Dumper \@zips;
+	carp Dumper \@mods;
 
-		push @{ $json->{Dist} }, $mods{$mod}{ $versions[-1] };
-		push @{ $json->{Mods} }, map { $mods{$mod}{$_} } @versions;
-	}
+	# Filter dependencies to the one with the highest version
+	$json->{Dist} = \@zips;
+	$json->{Mods} = \@mods;
 
 	$json->{License} = $self->_go_lic_info($module);
 
@@ -136,7 +129,6 @@ sub _go_mod_graph
 	my ($module) = $mod =~ /\bmodule\s+(.*?)\s/;
 	unless ( $json->{Module} eq $module ) {
 		my $msg = "Module $json->{Module} doesn't match $module";
-		warn "$msg\n";
 		croak $msg;
 	}
 
@@ -170,7 +162,7 @@ sub _go_mod_graph
 	        my ($m, $v) = split /@/;
 	        { Module => $m, Version => $v };
 	    } split /\s/
-	] } grep { $_ } @mods;
+	] } @mods;
 }
 
 sub get_ver_info
@@ -234,26 +226,41 @@ sub fill_in_makefile
 		$self->set_pkgname($di->{Name} . "-" . $parts[0]);
 	}
 
-	my @dist = map { [ $_->{Module}, $_->{Version}, "zip" ] }
-	    @{ $di->{Dist} || [] };
-	my @mods = map { [ $_->{Module}, $_->{Version}, "mod" ] }
-	    @{ $di->{Mods} };
-
-	my @combined = do { my %seen; grep { !$seen{"$_->[0]-$_->[1]"}++ } ( @dist, @mods ) };
+	my @slim_dist;
+	my @slim_mods;
 
 	# Turn the deps into tab separated columns
-	foreach my $s ( \@combined ) {
+	foreach my $s ( $di->{Dist} ) {
 		next unless @{$s}; # if there aren't any, don't try
 		my ($length) = sort { $b <=> $a } map { length $_->[0] } @$s;
 		my $n = ( 1 + int $length / 8 );
-		@{$s} = map {
+		map {
 		    ( my $l = $_->[0] ) =~ s/\p{Upper}/!\L$&/g;
 		    my $tabs = "\t" x ( $n - int( length($l) / 8 ) );
-		    "$l$tabs $_->[1] $_->[2]"
+		    my $line = "$l$tabs $_->[1]";
+
+		    push(@slim_dist, $line) unless grep{$_ eq $line} @slim_dist;
 		 } @{$s};
 	}
 
-	$self->set_other( MODGO_DEPENDS => \@combined ) if @mods;
+	foreach my $s ( $di->{Mods} ) {
+		next unless @{$s}; # if there aren't any, don't try
+		my ($length) = sort { $b <=> $a } map { length $_->[0] } @$s;
+		my $n = ( 1 + int $length / 8 );
+		map {
+		    ( my $l = $_->[0] ) =~ s/\p{Upper}/!\L$&/g;
+		    my $tabs = "\t" x ( $n - int( length($l) / 8 ) );
+		    my $line = "$l$tabs $_->[1]";
+
+		    push(@slim_mods, $line) unless grep{$_ eq $line} @slim_dist && grep{$_ eq $line} @slim_mods;
+		 } @{$s};
+	}
+
+	carp Dumper \@slim_dist;
+	carp Dumper \@slim_mods;
+
+	$self->set_other( MODGO_MODULES => \@slim_dist ) if @slim_dist;
+	$self->set_other( MODGO_MODFILES => \@slim_mods ) if @slim_mods;
 }
 
 sub try_building
