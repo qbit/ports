@@ -161,7 +161,7 @@ sub _go_mod_normalize
 	my $length = length $l;
 	my $n = ( 1 + int $length / $spacer );
 	my $tabs = "\t" x ( $n - int( length($l) / $spacer ) );
-	return "\t\t$l$tabs $version";
+	return "\t$l$tabs $version";
 }
 
 
