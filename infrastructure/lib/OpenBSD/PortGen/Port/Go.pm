@@ -117,36 +117,49 @@ sub _go_mod_info
 		close $fh;
 	}
 
-	my $old_cwd = getcwd();
-	chdir $dir or die "Unable to chdir '$dir': $!";
-
 	my @deps;
-	{
-		# Outputs: "dep version"
-		my @raw_deps = `go list -m all`
-		    or die "Unable to spawn 'go list': $!";
-		chomp @raw_deps;
-		@deps = map { $self->_go_mod_normalize( @{ $_ } ) }
-		    grep { $_->[1] } map { [ split / / ] } # module space version
-		    @raw_deps;
+	my $fh;
+	my $pid = open($fh, "-|");
+	if (!defined $pid) {
+		 die "unable to fork";
 	}
+	if ($pid == 0) {
+		chdir $dir or die "Unable to chdir '$dir': $!";
+		$ENV{GOPATH} = "$dir/go";
+		# Outputs: "dep version"
+		exec (qw(go list -m all));
+	}
+	my @raw_deps = <$fh>;
+	chomp @raw_deps;
+
+	close $fh or die "Unable to close pipe 'go list': $!";
+
+	@deps = map { $self->_go_mod_normalize( @{ $_ } ) }
+		grep { $_->[1] } map { [ split / / ] } # module space version
+		@raw_deps;
 	
 	my @mods;
-	{
-		# Outputs: "dep@version subdep@version"
-		local $ENV{GOPATH} = "$dir/go";
-		my @all_mods = `go mod graph`
-		    or die "Unable to spawn 'go mod path': $!";
-		chomp @all_mods;
-		my %all_deps = map { $_ => 1 } @deps;
-		push @mods, grep { !$all_deps{$_}++ }
-		    map { $self->_go_mod_normalize( @{ $_ } ) }
-		    grep { $_->[1] } map { [ split /\@/ ] } # module @ version
-		    map { split /\s+/ } @all_mods;
-
+	$pid = open($fh, "-|");
+	if (!defined $pid) {
+		 die "unable to fork";
 	}
+	if ($pid == 0) {
+		chdir $dir or die "Unable to chdir '$dir': $!";
+		$ENV{GOPATH} = "$dir/go";
+		# Outputs: "dep@version subdep@version"
+		exec (qw(go mod graph));
+	}
+	my @all_mods = <$fh>;
+	chomp @all_mods;
 
-	chdir $old_cwd or die "Unable to chdir '$old_cwd': $!";
+	close $fh or die "Unable to close pipe 'go mod': $!";
+
+	my %all_deps = map { $_ => 1 } @deps;
+	push @mods, grep { !$all_deps{$_}++ }
+		map { $self->_go_mod_normalize( @{ $_ } ) }
+		grep { $_->[1] } map { [ split /\@/ ] } # module @ version
+		map { split /\s+/ } @all_mods;
+
 
 	return ( \@deps, \@mods );
 }
