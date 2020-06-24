@@ -91,8 +91,11 @@ sub get_dist_info
 	my ( $self, $module ) = @_;
 
 	my $json = $self->_go_determine_name($module);
-	($json->{Dist}, $json->{Mods}) = $self->_go_mod_info($json);
+	my ($dist, $mods) = $self->_go_mod_info($json);
 	$json->{License} = $self->_go_lic_info($module);
+
+	$json->{Dist} = $dist if @$dist > 0;
+	$json->{Mods} = $mods if @$mods > 0;
 
 	return $json;
 }
@@ -161,20 +164,29 @@ sub _go_mod_info
 		map { split /\s+/ } @all_mods;
 
 
+	foreach my $fl ( \@deps, \@mods ) {
+		next unless @$fl > 0; # if there aren't any, don't try
+		my @s = map {
+			my @f = split(/ /, $_);
+			[$f[0], $f[1]];
+		} @$fl;
+		my ($length) = sort { $b <=> $a } map { length $_->[0] } @s;
+		my $n = ( 1 + int $length / 8 );
+		@s = map {
+			my $tabs = "\t" x ( $n - int( length($_->[0]) / 8 ) );
+			"\t$_->[0]$tabs $_->[1]"
+		} @s;
+		@$fl = @s;
+	 }
+
 	return ( \@deps, \@mods );
 }
 
 sub _go_mod_normalize
 {
 	my ( $self, $module, $version ) = @_;
-	my $spacer = 8;
-
 	( my $l = $module ) =~ s/\p{Upper}/!\L$&/g;
-	
-	my $length = length $l;
-	my $n = ( 1 + int $length / $spacer );
-	my $tabs = "\t" x ( $n - int( length($l) / $spacer ) );
-	return "\t$l$tabs $version";
+	return "$l $version";
 }
 
 
