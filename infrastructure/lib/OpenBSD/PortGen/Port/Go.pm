@@ -140,7 +140,7 @@ sub _go_mod_info
 	@deps = map { $self->_go_mod_normalize( @{ $_ } ) }
 		grep { $_->[1] } map { [ split / / ] } # module space version
 		@raw_deps;
-	
+
 	my @mods;
 	$pid = open($fh, "-|");
 	if (!defined $pid) {
