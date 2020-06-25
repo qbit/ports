@@ -100,6 +100,31 @@ sub get_dist_info
 	return $json;
 }
 
+sub _run
+{
+	my ($self, $cmd, $dir) = @_;
+	my $fh;
+
+	my $pid = open($fh, "-|");
+	if (!defined $pid) {
+		 die "unable to fork";
+	}
+
+	if ($pid == 0) {
+		chdir $dir or die "Unable to chdir '$dir': $!";
+		$ENV{GOPATH} = "$dir/go";
+		$ENV{GO111MODULE} = "on";
+		# Outputs: "dep version"
+		exec ($cmd);
+		die "exec didn't work: $!";
+	}
+
+	my @output = <$fh>;
+	chomp @output;
+	close $fh or die "Unable to close pipe '$cmd': $!";
+	return @output;
+}
+
 sub _go_mod_info
 {
 	my ($self, $json) = @_;
@@ -107,62 +132,50 @@ sub _go_mod_info
 
 	my $mod = $self->get("$json->{Module}/\@v/$json->{Version}.mod");
 	my ($module) = $mod =~ /\bmodule\s+(.*?)\s/;
-	#my ($module) = $mod =~ /\bmodule\s+(.*)\n/;
-	#$module =~ s/\s+$//;
+
 	unless ( $json->{Module} eq $module ) {
 		my $msg = "Module $json->{Module} doesn't match $module";
 		croak $msg;
 	}
 
-	{
-		open my $fh, '>', $dir . "/go.mod" or die $!;
-		print $fh $mod;
-		close $fh;
-	}
+	open my $fh, '>', $dir . "/go.mod" or die $!;
+	print $fh $mod;
+	close $fh;
 
+	# Outputs: "dep version"
+	my @raw_deps = $self->_run("go list -m all", $dir);
 	my @deps;
-	my $fh;
-	my $pid = open($fh, "-|");
-	if (!defined $pid) {
-		 die "unable to fork";
+	my $all_deps = {};
+	foreach my $dep (@raw_deps) {
+		next if $dep eq $json->{Module};
+		if ($dep =~ m/=>/) {
+			foreach my $d (split(/ => /, $dep)) {
+				my $smod = $self->_go_mod_normalize($d);
+				push @deps, $smod unless defined $all_deps->{$smod};
+				$all_deps->{$smod} = 1;
+			}
+		} else {
+			my $nmod = $self->_go_mod_normalize($dep);
+			push @deps, $nmod unless defined $all_deps->{$nmod};
+			$all_deps->{$nmod} = 1;
+		}
 	}
-	if ($pid == 0) {
-		chdir $dir or die "Unable to chdir '$dir': $!";
-		$ENV{GOPATH} = "$dir/go";
-		# Outputs: "dep version"
-		exec (qw(go list -m all));
-	}
-	my @raw_deps = <$fh>;
-	chomp @raw_deps;
 
-	close $fh or die "Unable to close pipe 'go list': $!";
-
-	@deps = map { $self->_go_mod_normalize( @{ $_ } ) }
-		grep { $_->[1] } map { [ split / / ] } # module space version
-		@raw_deps;
-
+	# Outputs: "dep@version subdep@version"
+	my @raw_mods =  $self->_run("go mod graph", $dir);
 	my @mods;
-	$pid = open($fh, "-|");
-	if (!defined $pid) {
-		 die "unable to fork";
+
+	foreach my $mod (@raw_mods) {
+		carp Dumper $mod if ($mod =~ m/markbates/);
+		foreach my $m (split(/ /, $mod)) {
+			$m =~ s/@/ /;
+			$m = $self->_go_mod_normalize($m);
+			if (! defined $all_deps->{$m}) {
+				push @mods, $m unless $m eq $json->{Module};
+				$all_deps->{$m} = 1;
+			}
+		}
 	}
-	if ($pid == 0) {
-		chdir $dir or die "Unable to chdir '$dir': $!";
-		$ENV{GOPATH} = "$dir/go";
-		# Outputs: "dep@version subdep@version"
-		exec (qw(go mod graph));
-	}
-	my @all_mods = <$fh>;
-	chomp @all_mods;
-
-	close $fh or die "Unable to close pipe 'go mod': $!";
-
-	my %all_deps = map { $_ => 1 } @deps;
-	push @mods, grep { !$all_deps{$_}++ }
-		map { $self->_go_mod_normalize( @{ $_ } ) }
-		grep { $_->[1] } map { [ split /\@/ ] } # module @ version
-		map { split /\s+/ } @all_mods;
-
 
 	foreach my $fl ( \@deps, \@mods ) {
 		next unless @$fl > 0; # if there aren't any, don't try
@@ -177,16 +190,22 @@ sub _go_mod_info
 			"\t$_->[0]$tabs $_->[1]"
 		} @s;
 		@$fl = @s;
-	 }
+	}
+
+
+	@deps = sort @deps;
+	@mods = sort @mods;
 
 	return ( \@deps, \@mods );
 }
 
 sub _go_mod_normalize
 {
-	my ( $self, $module, $version ) = @_;
-	( my $l = $module ) =~ s/\p{Upper}/!\L$&/g;
-	return "$l $version";
+	my ( $self, $line) = @_;
+	chomp $line;
+	$line =~ s/\p{Upper}/!\L$&/g;
+	$line =~ s/\s+/ /g;
+	return $line;
 }
 
 
