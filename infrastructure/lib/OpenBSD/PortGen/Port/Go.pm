@@ -116,7 +116,7 @@ sub _run
 		$ENV{GO111MODULE} = "on";
 		# Outputs: "dep version"
 		exec ($cmd);
-		die "exec didn't work: $!";
+		die "exec didn't work: $?";
 	}
 
 	my @output = <$fh>;
