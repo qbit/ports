@@ -65,16 +65,31 @@ sub _go_lic_info
 
 sub _go_determine_name
 {
-	# Some modules end in "v1" or "v2", if we find one of these, we need
-	# to set PKGNAME to something up a level
 	my ( $self, $module ) = @_;
-	my $json = $self->get_json( $module . '/@latest' );
+	my $json = {};
+
+	# Versions can be specified on the command line:
+	if ($module =~ m/\@v/) {
+		my @parts = split("@", $module);
+		$module = $parts[0];
+		$json->{Module} = $parts[0];
+		$json->{Version} = $parts[1];
+
+		# This is used in get_ver_info when we have already determined
+		# the version to use.
+		$self->{ModName} = $parts[0];
+		$self->{ModVersion} = $parts[1];
+	} else {
+		$json = $self->get_json( $module . '/@latest' );
+	}
 
 	if ($json->{Version} =~ m/incompatible/) {
 		my $msg = "${module} $json->{Version} is incompatible with Go modules.";
 		croak $msg;
 	}
 
+	# Some modules end in "v1" or "v2", if we find one of these, we need
+	# to set PKGNAME to something up a level
 	if ($module =~ m/v\d$/) {
 		$json->{Name}   = ( split '/', $module )[-2];
 	} else {
@@ -166,7 +181,6 @@ sub _go_mod_info
 	my @mods;
 
 	foreach my $mod (@raw_mods) {
-		carp Dumper $mod if ($mod =~ m/markbates/);
 		foreach my $m (split(/ /, $mod)) {
 			$m =~ s/@/ /;
 			$m = $self->_go_mod_normalize($m);
@@ -212,6 +226,11 @@ sub _go_mod_normalize
 sub get_ver_info
 {
 	my ( $self, $module ) = @_;
+
+	if (defined $self->{ModVersion} && defined $self->{ModName}) {
+		return { Module => $self->{ModName}, Version => $self->{ModVersion} };
+	}
+
 	my $version_list = $self->get( $module . '/@v/list' );
 	my $version = "v0.0.0";
 	my $ret;
