@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.1993 2020/06/26 10:08:09 pirofti Exp $
+# $OpenBSD: Makefile,v 1.1996 2020/06/30 05:06:28 rsadowski Exp $
 
      SUBDIR =
      SUBDIR += 64tass
@@ -37,7 +37,6 @@
      SUBDIR += autoconf-archive
      SUBDIR += autogen
      SUBDIR += automake
-     #SUBDIR += automoc
      SUBDIR += avr
      SUBDIR += avr32
      SUBDIR += avrdude
@@ -502,6 +501,7 @@
      SUBDIR += ocaml-yojson
      SUBDIR += ode
      SUBDIR += ois
+     SUBDIR += olm
      SUBDIR += open-ath9k-htc-firmware
      SUBDIR += openmpi
      SUBDIR += openocd
@@ -1417,7 +1417,6 @@
      SUBDIR += py-decorator,python3
      SUBDIR += py-decoratortools
      SUBDIR += py-deprecation,python3
-     SUBDIR += py-dill
      SUBDIR += py-dill,python3
      SUBDIR += py-dispatcher
      SUBDIR += py-dispatcher,python3
@@ -1550,7 +1549,6 @@
      SUBDIR += py-mox3,python3
      SUBDIR += py-mulpyplexer
      SUBDIR += py-mulpyplexer,python3
-     SUBDIR += py-multiprocess
      SUBDIR += py-multiprocess,python3
      SUBDIR += py-munch
      SUBDIR += py-munch,python3

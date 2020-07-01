@@ -1,4 +1,5 @@
-@comment $OpenBSD: PLIST,v 1.2 2020/06/24 08:57:02 jasper Exp $
+@comment $OpenBSD: PLIST,v 1.4 2020/06/30 10:21:32 ajacoutot Exp $
+@conflict spidermonkey-<=60.9.0v1
 @pkgpath devel/spidermonkey60
 bin/js${MOZILLA_VERSION}-config
 include/mozjs-${MOZILLA_VERSION}/

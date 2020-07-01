@@ -1,4 +1,4 @@
-# $OpenBSD: Go.pm,v 1.4 2020/06/26 11:02:32 espie Exp $
+# $OpenBSD: Go.pm,v 1.5 2020/06/26 23:26:04 abieber Exp $
 #
 # Copyright (c) 2019 Aaron Bieber <abieber@openbsd.org>
 #
@@ -117,7 +117,7 @@ sub get_dist_info
 
 sub _run
 {
-	my ($self, $cmd, $dir) = @_;
+	my ($self, $dir, @cmd) = @_;
 	my $fh;
 
 	my $pid = open($fh, "-|");
@@ -131,13 +131,14 @@ sub _run
 		$ENV{GO111MODULE} = "on";
 		# Outputs: "dep version"
 		$DB::inhibit_exit = 0;
-		exec ($cmd);
+		exec @cmd;
 		die "exec didn't work: $?";
 	}
 
 	my @output = <$fh>;
 	chomp @output;
-	close $fh or die "Unable to close pipe '$cmd': $!";
+	my $c = join(" ", @cmd);
+	close $fh or die "Unable to close pipe '$c': $!";
 	return @output;
 }
 
@@ -159,7 +160,7 @@ sub _go_mod_info
 	close $fh;
 
 	# Outputs: "dep version"
-	my @raw_deps = $self->_run("go list -m all", $dir);
+	my @raw_deps = $self->_run($dir, qw(go list -m all));
 	my @deps;
 	my $all_deps = {};
 	foreach my $dep (@raw_deps) {
@@ -178,7 +179,7 @@ sub _go_mod_info
 	}
 
 	# Outputs: "dep@version subdep@version"
-	my @raw_mods =  $self->_run("go mod graph", $dir);
+	my @raw_mods =  $self->_run($dir, qw(go mod graph));
 	my @mods;
 
 	foreach my $mod (@raw_mods) {
