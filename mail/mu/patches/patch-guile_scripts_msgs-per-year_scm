@@ -1,12 +1,12 @@
 $OpenBSD$
-look for guile interpreter as guile2.2
+look for guile interpreter as guile${GUILE_V}
 Index: guile/scripts/msgs-per-year.scm
 --- guile/scripts/msgs-per-year.scm.orig
 +++ guile/scripts/msgs-per-year.scm
 @@ -1,5 +1,5 @@
  #!/bin/sh
 -exec guile -e main -s $0 $@
-+exec guile2.2 -e main -s $0 $@
++exec guile${GUILE_V} -e main -s $0 $@
  !#
  ;;
  ;; Copyright (C) 2012-2013 Dirk-Jan C. Binnema <djcb@djcbsoftware.nl>

@@ -3,6 +3,7 @@
 COMMENT=	maildir indexer and searcher with emacs frontend
 
 V=		1.4.10
+GUILE_V=	2.2
 
 DISTNAME=	mu-$V
 
@@ -45,6 +46,8 @@ CONFIGURE_STYLE=	autoreconf
 CONFIGURE_ARGS=		--disable-gtk \
 			--disable-webkit
 
+SUBST_VARS+=		GUILE_V
+
 .if ${FLAVOR} == "guile"
 WANTLIB +=		guile-2.2 gc ltdl gmp
 LIB_DEPENDS +=		lang/guile2
@@ -55,5 +58,8 @@ CONFIGURE_ARGS +=	--disable-guile
 USE_GMAKE=		Yes
 
 SEPARATE_BUILD=		Yes
+
+pre-configure:
+	${SUBST_CMD} ${WRKDIST}/guile/*/*.scm
 
 .include <bsd.port.mk>
