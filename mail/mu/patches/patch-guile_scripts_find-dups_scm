@@ -1,0 +1,12 @@
+$OpenBSD$
+look for guile interpreter as guile2.2
+Index: guile/scripts/find-dups.scm
+--- guile/scripts/find-dups.scm.orig
++++ guile/scripts/find-dups.scm
+@@ -1,5 +1,5 @@
+ #!/bin/sh
+-exec guile -e main -s $0 $@
++exec guile2.2 -e main -s $0 $@
+ !#
+ ;;
+ ;; Copyright (C) 2013-2015 Dirk-Jan C. Binnema <djcb@djcbsoftware.nl>

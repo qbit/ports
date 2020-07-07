@@ -1,0 +1,12 @@
+$OpenBSD$
+look for guile interpreter as guile2.2
+Index: guile/scripts/msgs-per-hour.scm
+--- guile/scripts/msgs-per-hour.scm.orig
++++ guile/scripts/msgs-per-hour.scm
+@@ -1,5 +1,5 @@
+ #!/bin/sh
+-exec guile -e main -s $0 $@
++exec guile2.2 -e main -s $0 $@
+ !#
+ ;;
+ ;; Copyright (C) 2012-2013 Dirk-Jan C. Binnema <djcb@djcbsoftware.nl>

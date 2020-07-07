@@ -1,0 +1,15 @@
+$OpenBSD$
+Look for guile-snarf as guile-snarf2.2
+(lang/guile2 installs it that way)
+Index: configure.ac
+--- configure.ac.orig
++++ configure.ac
+@@ -230,7 +230,7 @@ AS_IF([test "x$enable_guile" != "xno"],[
+     GUILE_FLAGS
+     AC_DEFINE_UNQUOTED([GUILE_BINARY],"$GUILE",[guile binary])
+     AC_DEFINE(BUILD_GUILE,[1], [Do we support Guile?])
+-    AC_SUBST(GUILE_SNARF, [guile-snarf])
++    AC_SUBST(GUILE_SNARF, [guile-snarf2.2])
+     guile_version=$($PKG_CONFIG guile-2.2 --modversion)
+   ])
+ ])

@@ -1,0 +1,12 @@
+$OpenBSD$
+look for guile interpreter as guile2.2
+Index: guile/tests/test-mu-guile.scm
+--- guile/tests/test-mu-guile.scm.orig
++++ guile/tests/test-mu-guile.scm
+@@ -1,5 +1,5 @@
+ #!/bin/sh
+-exec guile -e main -s $0 $@
++exec guile2.2 -e main -s $0 $@
+ !#
+ 
+ ;; Copyright (C) 2012-2013 Dirk-Jan C. Binnema <djcb@djcbsoftware.nl>
