@@ -19,10 +19,10 @@ MAINTAINER=	Stefan Hagen <sh+ports@codevoid.de>
 # GPLv3+
 PERMIT_PACKAGE=	Yes
 
-WANTLIB += ${COMPILER_LIBCXX} assuan c ffi gio-2.0 glib-2.0 gmime-3.0
-WANTLIB += gmodule-2.0 gobject-2.0 gpg-error gpgme gthread-2.0
-WANTLIB += iconv idn2 intl json-glib-1.0 m pcre unistring uuid
-WANTLIB += xapian z curses readline
+WANTLIB += ${COMPILER_LIBCXX} assuan c curses ffi gio-2.0 glib-2.0
+WANTLIB += gmime-3.0 gmodule-2.0 gobject-2.0 gpg-error gpgme gthread-2.0
+WANTLIB += iconv idn2 intl json-glib-1.0 m pcre readline unistring
+WANTLIB += uuid xapian z
 
 MASTER_SITES=	https://github.com/djcb/mu/releases/download/${V}/
 EXTRACT_SUFX=	.tar.xz
