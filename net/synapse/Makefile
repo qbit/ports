@@ -2,7 +2,7 @@
 
 COMMENT =	open network for secure, decentralized communication
 
-MODPY_EGG_VERSION =	1.15.2
+MODPY_EGG_VERSION =	1.17.0
 
 GH_ACCOUNT =	matrix-org
 GH_PROJECT =	synapse
@@ -58,7 +58,9 @@ RUN_DEPENDS =	textproc/py-lxml${MODPY_FLAVOR} \
 		security/py-PyNaCl${MODPY_FLAVOR} \
 		security/py-openssl${MODPY_FLAVOR}
 
-TEST_DEPENDS =	${RUN_DEPENDS}
+TEST_DEPENDS =	${RUN_DEPENDS} \
+		devel/py-mock${MODPY_FLAVOR} \
+		devel/py-parameterized${MODPY_FLAVOR}
 
 do-test:
 	cd ${WRKSRC} && ${SETENV} PYTHONPATH=. ${LOCALBASE}/bin/trial-3 tests

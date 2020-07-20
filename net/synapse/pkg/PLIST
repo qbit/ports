@@ -4,6 +4,8 @@
 @rcscript ${RCDIR}/synapse
 bin/export_signing_key
 bin/generate_log_config
+lib/python${MODPY_VERSION}/
+lib/python${MODPY_VERSION}/site-packages/
 lib/python${MODPY_VERSION}/site-packages/matrix_synapse-${MODPY_EGG_VERSION}-py${MODPY_VERSION}.egg-info/
 lib/python${MODPY_VERSION}/site-packages/matrix_synapse-${MODPY_EGG_VERSION}-py${MODPY_VERSION}.egg-info/PKG-INFO
 lib/python${MODPY_VERSION}/site-packages/matrix_synapse-${MODPY_EGG_VERSION}-py${MODPY_VERSION}.egg-info/SOURCES.txt
@@ -117,6 +119,7 @@ lib/python${MODPY_VERSION}/site-packages/synapse/config/${MODPY_PYCACHE}ratelimi
 lib/python${MODPY_VERSION}/site-packages/synapse/config/${MODPY_PYCACHE}redis.${MODPY_PYC_MAGIC_TAG}pyc
 lib/python${MODPY_VERSION}/site-packages/synapse/config/${MODPY_PYCACHE}registration.${MODPY_PYC_MAGIC_TAG}pyc
 lib/python${MODPY_VERSION}/site-packages/synapse/config/${MODPY_PYCACHE}repository.${MODPY_PYC_MAGIC_TAG}pyc
+lib/python${MODPY_VERSION}/site-packages/synapse/config/${MODPY_PYCACHE}room.${MODPY_PYC_MAGIC_TAG}pyc
 lib/python${MODPY_VERSION}/site-packages/synapse/config/${MODPY_PYCACHE}room_directory.${MODPY_PYC_MAGIC_TAG}pyc
 lib/python${MODPY_VERSION}/site-packages/synapse/config/${MODPY_PYCACHE}saml2_config.${MODPY_PYC_MAGIC_TAG}pyc
 lib/python${MODPY_VERSION}/site-packages/synapse/config/${MODPY_PYCACHE}server.${MODPY_PYC_MAGIC_TAG}pyc
@@ -154,6 +157,7 @@ lib/python${MODPY_VERSION}/site-packages/synapse/config/ratelimiting.py
 lib/python${MODPY_VERSION}/site-packages/synapse/config/redis.py
 lib/python${MODPY_VERSION}/site-packages/synapse/config/registration.py
 lib/python${MODPY_VERSION}/site-packages/synapse/config/repository.py
+lib/python${MODPY_VERSION}/site-packages/synapse/config/room.py
 lib/python${MODPY_VERSION}/site-packages/synapse/config/room_directory.py
 lib/python${MODPY_VERSION}/site-packages/synapse/config/saml2_config.py
 lib/python${MODPY_VERSION}/site-packages/synapse/config/server.py
@@ -1153,6 +1157,9 @@ lib/python${MODPY_VERSION}/site-packages/synapse/storage/data_stores/main/schema
 lib/python${MODPY_VERSION}/site-packages/synapse/storage/data_stores/main/schema/delta/58/03persist_ui_auth.sql
 lib/python${MODPY_VERSION}/site-packages/synapse/storage/data_stores/main/schema/delta/58/05cache_instance.sql.postgres
 lib/python${MODPY_VERSION}/site-packages/synapse/storage/data_stores/main/schema/delta/58/06dlols_unique_idx.py
+lib/python${MODPY_VERSION}/site-packages/synapse/storage/data_stores/main/schema/delta/58/08_media_safe_from_quarantine.sql.postgres
+lib/python${MODPY_VERSION}/site-packages/synapse/storage/data_stores/main/schema/delta/58/08_media_safe_from_quarantine.sql.sqlite
+lib/python${MODPY_VERSION}/site-packages/synapse/storage/data_stores/main/schema/delta/58/10drop_local_rejections_stream.sql
 ${MODPY_COMMENT}lib/python${MODPY_VERSION}/site-packages/synapse/storage/data_stores/main/schema/delta/58/${MODPY_PYCACHE}/
 lib/python${MODPY_VERSION}/site-packages/synapse/storage/data_stores/main/schema/delta/58/${MODPY_PYCACHE}06dlols_unique_idx.${MODPY_PYC_MAGIC_TAG}pyc
 lib/python${MODPY_VERSION}/site-packages/synapse/storage/data_stores/main/schema/full_schemas/
