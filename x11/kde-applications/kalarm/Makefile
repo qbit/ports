@@ -1,8 +1,9 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2020/06/14 04:21:55 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.3 2020/06/21 18:12:53 rsadowski Exp $
 
 COMMENT =	personal alarm message, command and email scheduler
 DISTNAME =	kalarm-${VERSION}
 CATEGORIES =	productivity
+REVISION =	0
 
 WANTLIB += ${COMPILER_LIBCXX} KF5AkonadiContact KF5AkonadiCore
 WANTLIB += KF5AkonadiMime KF5AkonadiWidgets KF5AlarmCalendar KF5Auth
@@ -30,7 +31,10 @@ MODKF5_I18N_CONFLICT = yes
 MODULES +=	x11/kde-applications \
 		multimedia/phonon
 
-RUN_DEPENDS =	x11/dbus,-suid
+BUILD_DEPENDS =	devel/boost
+
+RUN_DEPENDS =	x11/dbus,-suid \
+		x11/kde-applications/kdepim-runtime
 
 LIB_DEPENDS =	devel/kf5/kauth \
 		devel/kf5/kbookmarks \

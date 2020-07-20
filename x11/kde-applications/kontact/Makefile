@@ -1,8 +1,9 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2020/06/14 04:48:47 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.3 2020/06/21 18:12:54 rsadowski Exp $
 
 COMMENT =	documentenal information management suite
 DISTNAME =	kontact-${VERSION}
 CATEGORIES =	net www
+REVISION =	0
 
 SHARED_LIBS +=  kontactprivate       0.0 # 5.13.2
 
@@ -25,6 +26,10 @@ MODKDE5_DOCS = yes
 MODKF5_L10N_CONFLICT = yes
 
 MODULES +=	x11/kde-applications
+
+BUILD_DEPENDS =	devel/boost
+
+RUN_DEPENDS =	x11/kde-applications/kdepim-runtime
 
 LIB_DEPENDS =	devel/kf5/kauth \
 		devel/kf5/kcmutils \

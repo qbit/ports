@@ -1,14 +1,17 @@
-@comment $OpenBSD: PLIST,v 1.2 2017/01/12 16:18:55 zhuk Exp $
-include/kde4/
-include/kde4/alkimia/
-include/kde4/alkimia/alk_export.h
-include/kde4/alkimia/alkcompany.h
-include/kde4/alkimia/alkquoteitem.h
-include/kde4/alkimia/alkvalue.h
-lib/cmake/LibAlkimia/
-lib/cmake/LibAlkimia/LibAlkimiaConfig.cmake
-lib/cmake/LibAlkimia/LibAlkimiaConfigVersion.cmake
-lib/cmake/LibAlkimia/LibAlkimiaTargets${MODKDE4_CMAKE_PREFIX}.cmake
-lib/cmake/LibAlkimia/LibAlkimiaTargets.cmake
-@lib lib/libalkimia.so.${LIBalkimia_VERSION}
-lib/pkgconfig/libalkimia.pc
+@comment $OpenBSD: PLIST,v 1.4 2020/07/15 20:10:34 rsadowski Exp $
+include/alkimia/
+include/alkimia/Qt5/
+include/alkimia/Qt5/alkimia/
+include/alkimia/Qt5/alkimia/alk_export.h
+include/alkimia/Qt5/alkimia/alkcompany.h
+include/alkimia/Qt5/alkimia/alkquoteitem.h
+include/alkimia/Qt5/alkimia/alkvalue.h
+lib/cmake/
+lib/cmake/LibAlkimia5-7.0/
+lib/cmake/LibAlkimia5-7.0/FindGMP.cmake
+lib/cmake/LibAlkimia5-7.0/LibAlkimia5Config.cmake
+lib/cmake/LibAlkimia5-7.0/LibAlkimia5ConfigVersion.cmake
+lib/cmake/LibAlkimia5-7.0/LibAlkimia5Targets${MODCMAKE_BUILD_SUFFIX}
+lib/cmake/LibAlkimia5-7.0/LibAlkimia5Targets.cmake
+@lib lib/libalkimia5.so.${LIBalkimia5_VERSION}
+lib/pkgconfig/libalkimia5.pc

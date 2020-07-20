@@ -1,8 +1,9 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2020/06/14 04:57:35 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.3 2020/06/21 18:12:54 rsadowski Exp $
 
 COMMENT =	notes management tool
 DISTNAME =	knotes-${VERSION}
 CATEGORIES =	net www
+REVISION =	0
 
 HOMEPAGE =	http://knotesapp.com/
 
@@ -35,6 +36,10 @@ MODKF5_L10N_CONFLICT = yes
 MODKF5_I18N_CONFLICT = yes
 
 MODULES +=	x11/kde-applications
+
+BUILD_DEPENDS =	devel/boost
+
+RUN_DEPENDS =	x11/kde-applications/kdepim-runtime
 
 LIB_DEPENDS =	devel/kf5/attica \
 		devel/kf5/kauth \
