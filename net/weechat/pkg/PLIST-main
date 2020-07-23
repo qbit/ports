@@ -21,6 +21,8 @@ lib/weechat/plugins/
 @so lib/weechat/plugins/spell.so
 @so lib/weechat/plugins/trigger.so
 @so lib/weechat/plugins/xfer.so
+share/applications/
+share/applications/weechat.desktop
 share/doc/weechat/
 share/doc/weechat/weechat_dev.en.adoc
 share/doc/weechat/weechat_faq.en.adoc
@@ -42,3 +44,4 @@ share/locale/pt/LC_MESSAGES/weechat.mo
 share/locale/pt_BR/LC_MESSAGES/weechat.mo
 share/locale/ru/LC_MESSAGES/weechat.mo
 share/locale/tr/LC_MESSAGES/weechat.mo
+@tag update-desktop-database

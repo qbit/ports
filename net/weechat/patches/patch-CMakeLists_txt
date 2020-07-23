@@ -5,7 +5,7 @@ Disable icons and weechat.desktop to avoid GUI dependencies
 Index: CMakeLists.txt
 --- CMakeLists.txt.orig
 +++ CMakeLists.txt
-@@ -235,7 +235,7 @@ if(DL_LIBRARY)
+@@ -231,7 +231,7 @@ if(DL_LIBRARY)
    list(APPEND EXTRA_LIBS dl)
  endif()
  
@@ -14,12 +14,3 @@ Index: CMakeLists.txt
  
  if(ENABLE_NLS)
    add_subdirectory(po)
-@@ -302,7 +302,7 @@ if(CYGWIN)
- endif()
- 
- # desktop file
--install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/weechat.desktop DESTINATION ${SHAREDIR}/applications)
-+#install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/weechat.desktop DESTINATION ${SHAREDIR}/applications)
- 
- # packages
- set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Fast, light and extensible chat client")
