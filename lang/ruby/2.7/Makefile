@@ -6,7 +6,7 @@ SHARED_LIBS =		ruby27	0.0
 NEXTVER =		2.8
 PKGSPEC-main ?=         ruby->=2.7.0,<${NEXTVER}
 
-REVISION-main =		0
+REVISION-main =		1
 
 PSEUDO_FLAVORS=		no_ri_docs bootstrap
 # Do not build the RI docs on slow arches
