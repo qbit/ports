@@ -5,7 +5,7 @@ COMMENT=	CLI tools to manage music collections
 MODPY_EGG_VERSION= 1.4.9
 DISTNAME=	beets-${MODPY_EGG_VERSION}
 CATEGORIES=	audio
-REVISION=	5
+REVISION=	6
 
 HOMEPAGE=	http://beets.io/
 
