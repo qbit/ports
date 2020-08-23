@@ -13,6 +13,8 @@ CATEGORIES =	net www
 # Apache 2.0
 PERMIT_PACKAGE =	Yes
 
+WANTLIB += c pthread
+
 MODULES =		lang/go
 
 ALL_TARGET =		${MODGO_MODNAME}/...
