@@ -3,14 +3,12 @@
 COMMENT= generate SCons/Makefiles from platform-independent input
 
 DISTNAME=	gyp-r1812
-REVISION=	1
+REVISION=	2
 PKGNAME=	${DISTNAME:S/r/0./g}
 
 CATEGORIES=	devel
 
 HOMEPAGE=	https://bugs.chromium.org/p/gyp/
-
-MAINTAINER=	Aaron Bieber <abieber@openbsd.org>
 
 # BSD
 PERMIT_PACKAGE=	Yes

@@ -8,7 +8,7 @@ GH_PROJECT=	lwjgl
 GH_TAGNAME=	${GH_PROJECT}${V}
 DISTNAME=	lwjgl${V}
 PKGNAME=	lwjgl-${V}
-REVISION=	3
+REVISION=	4
 
 .if ${MACHINE_ARCH} == "i386"
 M_ARCH=		""
@@ -21,8 +21,6 @@ LWJGL_HOME=	${PREFIX}/share/lwjgl
 CATEGORIES=	games devel
 
 HOMEPAGE=	http://lwjgl.org
-
-MAINTAINER=	Aaron Bieber <abieber@openbsd.org>
 
 # BSD
 PERMIT_PACKAGE=	Yes

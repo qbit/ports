@@ -5,13 +5,11 @@ COMMENT =		user session management for flask
 MODPY_EGG_VERSION =	0.4.1
 DISTNAME =		Flask-Login-${MODPY_EGG_VERSION}
 PKGNAME =		py-${DISTNAME:L}
-REVISION =		1
+REVISION =		2
 
 CATEGORIES =		www
 
 HOMEPAGE =		https://github.com/maxcountryman/flask-login
-
-MAINTAINER =		Aaron Bieber <abieber@openbsd.org>
 
 # MIT
 PERMIT_PACKAGE =	Yes

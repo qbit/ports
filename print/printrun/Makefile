@@ -3,15 +3,13 @@
 COMMENT=	3D printing host suite
 DISTNAME=	printrun-20150310
 CATEGORIES=	print
-REVISION=	0
+REVISION=	1
 
 GH_ACCOUNT=	kliment
 GH_PROJECT=	Printrun
 GH_TAGNAME=	${DISTNAME}
 
 HOMEPAGE=	http://www.pronterface.com/
-
-MAINTAINER=     Aaron Bieber <abieber@openbsd.org>
 
 # GPLv3
 PERMIT_PACKAGE=	Yes

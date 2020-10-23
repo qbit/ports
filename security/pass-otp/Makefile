@@ -4,12 +4,11 @@ COMMENT =	OTP extension for password-store
 
 V =		1.1.1
 DISTNAME =	pass-otp-${V}
+REVISION =	0
 
 CATEGORIES =	security
 
 HOMEPAGE =	https://github.com/tadfisher/pass-otp
-
-MAINTAINER =	Aaron Bieber <abieber@openbsd.org>
 
 # GPLv3+
 PERMIT_PACKAGE =	Yes

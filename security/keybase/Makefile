@@ -8,15 +8,13 @@ ONLY_FOR_ARCHS = amd64
 COMMENT =	client for keybase.io
 
 V =		v5.2.0
-REVISION =	0
+REVISION =	1
 DISTNAME =	keybase-${V}
 PKGNAME =	keybase-${V:S/v//}
 EXTRACT_SUFX =	.tar.xz
 
 CATEGORIES =	security
 HOMEPAGE =	https://keybase.io
-
-MAINTAINER =	Aaron Bieber <abieber@openbsd.org>
 
 # BSD
 PERMIT_PACKAGE =	Yes

@@ -4,15 +4,13 @@ COMMENT =	a replacement for gpg which can encrypt/sign/verify
 
 DISTNAME =	opmsg-1.78s
 EXTRACT_SUFX =	.tgz
-REVISION =	0
+REVISION =	1
 
 FIX_EXTRACT_PERMISSIONS = Yes
 
 CATEGORIES =	security
 
 HOMEPAGE =	https://github.com/stealth/opmsg
-
-MAINTAINER =	Aaron Bieber <abieber@openbsd.org>
 
 # GPLv3+
 PERMIT_PACKAGE =	Yes

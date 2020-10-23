@@ -3,13 +3,11 @@
 COMMENT=	X amateur station tracking and info reporting
 
 DISTNAME=	xastir-2.0.6
-REVISION=	4
+REVISION=	5
 
 CATEGORIES=    	comms hamradio geo
 
 HOMEPAGE=	http://www.xastir.org/
-
-MAINTAINER=	Aaron Bieber <abieber@openbsd.org>
 
 PERMIT_PACKAGE=	Yes
 

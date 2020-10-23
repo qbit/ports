@@ -5,12 +5,11 @@ COMMENT=	functional-first programming language
 GH_ACCOUNT=	fsharp
 GH_PROJECT=	fsharp
 GH_TAGNAME=	4.0.1.1
+REVISION=	0
 
 CATEGORIES=	lang devel
 
 HOMEPAGE=	http://fsharp.org/
-
-MAINTAINER=	Aaron Bieber <abieber@openbsd.org>
 
 # Apache 2
 PERMIT_PACKAGE=	Yes
