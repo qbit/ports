@@ -24,7 +24,7 @@ GCC3_ARCHS = m88k
 MONO_ARCHS = amd64 i386
 OCAML_NATIVE_ARCHS = i386 amd64
 OCAML_NATIVE_DYNLINK_ARCHS = i386 amd64
-GO_ARCHS = aarch64 amd64 arm arm64 armv7 i386
+GO_ARCHS = aarch64 amd64 arm arm64 armv7 i386 mips64
 RUST_ARCHS = aarch64 amd64 i386 sparc64
 
 # arches where the base compiler is clang
