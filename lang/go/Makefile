@@ -45,14 +45,11 @@ GOROOT =		${PREFIX}/go
 GOROOT_BOOTSTRAP =
 
 # sync with go.port.mk
-.if ${MACHINE_ARCH} == "amd64"
-GOARCH =		amd64
-.elif ${MACHINE_ARCH} == "arm"
-GOARCH =		arm
-.elif ${MACHINE_ARCH} == "aarch64"
-GOARCH =		arm64
+_GOARCH =	${MACHINE_ARCH}
+.if ${MACHINE_ARCH} == "aarch64"
+_GOARCH =	arm64
 .elif ${MACHINE_ARCH} == "i386"
-GOARCH =		386
+_GOARCH =	386
 .endif
 
 # We cannot assume that the maching running the built code will have SSE,
