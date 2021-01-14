@@ -2,8 +2,8 @@
 
 ONLY_FOR_ARCHS =	${GO_ARCHS}
 
-BIN_BOOTSTRAP_GOARCHS =	arm arm64
-BIN_BOOTSTRAP_VERSION = 1.13.9
+BIN_BOOTSTRAP_GOARCHS =	arm arm64 mips64
+BIN_BOOTSTRAP_VERSION = 1.16beta1
 
 COMMENT =		Go programming language
 
@@ -24,7 +24,7 @@ PERMIT_PACKAGE =	Yes
 WANTLIB =		c pthread
 
 MASTER_SITES =		https://golang.org/dl/
-MASTER_SITES0 =		https://download.exigere.com.au/pub/go/
+MASTER_SITES0 =		https://deftly.net/dist/go/
 
 DISTFILES =		${DISTNAME}${EXTRACT_SUFX}
 
@@ -45,11 +45,11 @@ GOROOT =		${PREFIX}/go
 GOROOT_BOOTSTRAP =
 
 # sync with go.port.mk
-_GOARCH =	${MACHINE_ARCH}
+GOARCH =	${MACHINE_ARCH}
 .if ${MACHINE_ARCH} == "aarch64"
-_GOARCH =	arm64
+GOARCH =	arm64
 .elif ${MACHINE_ARCH} == "i386"
-_GOARCH =	386
+GOARCH =	386
 .endif
 
 # We cannot assume that the maching running the built code will have SSE,
