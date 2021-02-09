@@ -2,12 +2,12 @@
 
 ONLY_FOR_ARCHS =	${GO_ARCHS}
 
-BIN_BOOTSTRAP_GOARCHS =	arm arm64
-BIN_BOOTSTRAP_VERSION = 1.13.9
+BIN_BOOTSTRAP_GOARCHS =	arm arm64 mips64
+BIN_BOOTSTRAP_VERSION = 1.16rc1
 
 COMMENT =		Go programming language
 
-VERSION =		1.15.7
+VERSION =		1.16rc1
 DISTNAME =		go${VERSION}.src
 PKGNAME =		go-${VERSION}
 PKGSPEC =		${FULLPKGNAME:S/go-/go-=/}
@@ -53,6 +53,8 @@ GOARCH =		arm
 GOARCH =		arm64
 .elif ${MACHINE_ARCH} == "i386"
 GOARCH =		386
+.elif ${MACHINE_ARCH} == "mips64"
+GOARCH =		mips64
 .endif
 
 # We cannot assume that the maching running the built code will have SSE,

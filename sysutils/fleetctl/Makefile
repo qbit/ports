@@ -20,7 +20,9 @@ BUILD_DEPENDS =		shells/bash
 NO_TEST =		Yes
 
 do-build:
-	cd ${WRKSRC} && env GOCACHE=${MODGO_GOCACHE} ${LOCALBASE}/bin/bash build
+	cd ${WRKSRC} && env GOCACHE=${MODGO_GOCACHE} \
+		GO111MODULE=off \
+		${LOCALBASE}/bin/bash build
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/fleetctl ${PREFIX}/bin/

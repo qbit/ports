@@ -30,6 +30,8 @@ _GOARCH =	arm
 _GOARCH =	arm64
 .elif ${MACHINE_ARCH} == "i386"
 _GOARCH =	386
+.elif ${MACHINE_ARCH} == "mips64"
+_GOARCH =	mips64
 .endif
 
 MODGO_PACKAGE_PATH =	${PREFIX}/go-pkg

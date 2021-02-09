@@ -31,7 +31,7 @@ CONFIGURE_STYLE =	XXX: do not execute MODPY_BUILD_TARGET in python.port.mk:250
 BUILD_DEPENDS =		lang/go \
 			textproc/asciidoc
 
-MAKE_ENV =		GOCACHE=${WRKDIR}/go-cache
+MAKE_ENV =		GOCACHE=${WRKDIR}/go-cache GO111MODULE=off
 ALL_TARGET =		loccount loccount.1
 TEST_TARGET =		check
 

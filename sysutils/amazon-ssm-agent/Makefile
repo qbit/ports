@@ -24,7 +24,7 @@ NO_TEST=		Yes
 ALL_TARGET=		build-openbsd
 
 USE_GMAKE=		Yes
-MAKE_ENV=		SKIP_CHECKSTYLE=Yes GOCACHE=${WRKDIR}/go-cache
+MAKE_ENV=		SKIP_CHECKSTYLE=Yes GOCACHE=${WRKDIR}/go-cache GO111MODULE=off
 MAKE_FILE=		makefile
 
 WRKSRC=			${WRKDIR}/src/github.com/aws/amazon-ssm-agent
