@@ -4692,7 +4692,7 @@ go/src/debug/elf/testdata/compressed-32.obj
 go/src/debug/elf/testdata/compressed-64.obj
 go/src/debug/elf/testdata/gcc-386-freebsd-exec
 go/src/debug/elf/testdata/gcc-amd64-linux-exec
-go/src/debug/elf/testdata/gcc-${MACHINE_ARCH}-openbsd-debug-with-rela.obj
+go/src/debug/elf/testdata/gcc-amd64-openbsd-debug-with-rela.obj
 go/src/debug/elf/testdata/go-relocation-test-clang-arm.obj
 go/src/debug/elf/testdata/go-relocation-test-clang-x86.obj
 go/src/debug/elf/testdata/go-relocation-test-gcc424-x86-64.obj
