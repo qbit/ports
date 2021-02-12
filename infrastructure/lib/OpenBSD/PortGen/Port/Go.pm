@@ -144,7 +144,7 @@ sub _go_mod_info
 	close $fh;
 
 	# Outputs: "dep version"
-	my @raw_deps = $self->_run($dir, qw(go list -m all));
+	my @raw_deps = $self->_run($dir, qw(go list -mod=mod -m all));
 	my @deps;
 	my $all_deps = {};
 	foreach my $dep (@raw_deps) {
