@@ -47,7 +47,7 @@ MODGO_GOPATH ?=		${MODGO_WORKSPACE}:${MODGO_PACKAGE_PATH}
 # We cannot assume that the maching running the built code will have SSE,
 # even though the machine building the package has SSE. As such, we need
 # to explicitly disable SSE on i386 builds.
-MAKE_ENV +=		GO386=387
+MAKE_ENV +=		GO386=softfloat
 MAKE_ENV +=		GOCACHE="${MODGO_GOCACHE}"
 
 MODGO_CMD ?=		${SETENV} ${MAKE_ENV} go

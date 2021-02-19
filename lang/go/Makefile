@@ -55,11 +55,6 @@ GOARCH =		arm64
 GOARCH =		386
 .endif
 
-# We cannot assume that the maching running the built code will have SSE,
-# even though the machine building the package has SSE. As such, we need
-# to explicitly disable SSE on i386 builds.
-#MAKE_ENV +=		GO386=387
-
 .for arch in ${BIN_BOOTSTRAP_GOARCHS}
 SUPDISTFILES +=		go-openbsd-${arch}-bootstrap-${BIN_BOOTSTRAP_VERSION}${EXTRACT_SUFX}:0
 
