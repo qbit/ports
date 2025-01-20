@@ -1,0 +1,21 @@
+COMMENT =		Reticulum based mesh communication
+
+MODPY_DISTV =		0.5.7
+DISTNAME=		nomadnet-${MODPY_DISTV}
+PKGNAME =		${DISTNAME}
+
+CATEGORIES =		net
+
+# GPLv3
+PERMIT_PACKAGE =	Yes
+
+MODULES =		lang/python
+
+MODPY_PI =		Yes
+MODPY_PYBUILD =		setuptools
+
+RUN_DEPENDS =		devel/py-urwid \
+			net/py-rns \
+			net/py-lxmf
+
+.include <bsd.port.mk>
