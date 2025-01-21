@@ -2,7 +2,7 @@ COMMENT =		cryptography-based networking stack
 
 MODPY_DISTV =		0.9.1
 DISTNAME=		rns-${MODPY_DISTV}
-PKGNAME =		${DISTNAME}
+PKGNAME =		py-${DISTNAME}
 
 CATEGORIES =		net
 

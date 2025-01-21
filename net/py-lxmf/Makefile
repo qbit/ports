@@ -2,7 +2,7 @@ COMMENT =		lightweight extensible message format
 
 MODPY_DISTV =		0.6.0
 DISTNAME=		lxmf-${MODPY_DISTV}
-PKGNAME =		${DISTNAME}
+PKGNAME =		py-${DISTNAME}
 
 CATEGORIES =		net
 
