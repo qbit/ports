@@ -4,7 +4,11 @@ MODPY_DISTV =		0.9.1
 DISTNAME=		rns-${MODPY_DISTV}
 PKGNAME =		py-${DISTNAME}
 
-CATEGORIES =		net
+CATEGORIES =		net devel
+
+HOMEPAGE =		https://reticulum.network/
+
+MAINTAINER =		Aaron Bieber <abieber@openbsd.org>
 
 # MIT
 PERMIT_PACKAGE =	Yes

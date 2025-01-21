@@ -4,7 +4,11 @@ MODPY_DISTV =		0.6.0
 DISTNAME=		lxmf-${MODPY_DISTV}
 PKGNAME =		py-${DISTNAME}
 
-CATEGORIES =		net
+CATEGORIES =		net devel
+
+HOMEPAGE =		https://github.com/markqvist/LXMF
+
+MAINTAINER =		Aaron Bieber <abieber@openbsd.org>
 
 # MIT
 PERMIT_PACKAGE =	Yes

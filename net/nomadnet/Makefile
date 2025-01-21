@@ -6,6 +6,10 @@ PKGNAME =		${DISTNAME}
 
 CATEGORIES =		net
 
+HOMEPAGE =		https://github.com/markqvist/nomadnet
+
+MAINTAINER =		Aaron Bieber <abieber@openbsd.org>
+
 # GPLv3
 PERMIT_PACKAGE =	Yes
 
